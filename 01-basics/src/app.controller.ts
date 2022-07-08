@@ -12,3 +12,7 @@ export class AppController {
 		return 'Bye there!';
 	}
 }
+                Thanks for installing Nest 🙏
+                                                                             Please consider donating to our open collective
+                                                                                    to help us maintain this package.
+                                                                                                    
