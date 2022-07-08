@@ -10,4 +10,4 @@ Content-Type: application/json
 }
 
 ### Get a particular message
-GET http://localhost:3000/messages/12312323/messages/12312323
+GET http://localhost:3000/messages/12312323/
