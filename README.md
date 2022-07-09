@@ -72,3 +72,41 @@ npm install @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7
    }
    }
    ```
+
+# Nest Architecture: Services and Repositories
+
+1. Design follows similar mvc conventions
+   - Controller -> Service -> Repository
+   - Repository is the data layer
+   - Service is the business layer
+## Dependency Injection
+   
+1. Nest does not have classes create dependencies
+   - You **can**, but similar to .net core, you shouldn't
+   - It's built to use DI
+   - Similar to how I've used it before...define an interface and pass in as parameter to constructor
+1. Inversion of Control Principle
+   - Classes should not create intances of its dependencies on its own
+1. Adding classes to DI Container
+   ```ts
+   import { Module } from '@nestjs/common';
+   import { MessagesController } from './messages.controller';
+   import { MessagesService } from './messages.service';
+   import { MessagesRepository } from './messages.repository';
+
+   @Module({
+   controllers: [MessagesController],
+   providers: [MessagesService, MessagesRepository],
+   })
+   export class MessagesModule {}
+   ```
+1. Setting class as injectable
+   ```ts
+   import { Injectable } from '@nestjs/common';
+   import { MessagesRepository } from './messages.repository';
+
+   @Injectable()
+   export class MessagesService {
+   constructor(private readonly messagesRepo: MessagesRepository) {}
+   }
+   ```
