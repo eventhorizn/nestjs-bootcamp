@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PowerService } from 'src/power/power.service';
+import { PowerService } from '../power/power.service';
 
 @Injectable()
 export class DiskService {
@@ -8,7 +8,6 @@ export class DiskService {
   getData() {
     console.log('Drawing 20 watts of power from PowerService');
     this.powerService.supplyPower(20);
-
-    return 'data';
+    return 'data!';
   }
 }
