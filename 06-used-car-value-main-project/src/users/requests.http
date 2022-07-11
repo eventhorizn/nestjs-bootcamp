@@ -1,0 +1,25 @@
+### Create a new user
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "testpassword"
+}
+
+### Create a new user - Invalid email
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "test.com",
+    "password": "testpassword"
+}
+
+### Create a new user - Missing password
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "test.com"
+}

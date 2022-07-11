@@ -40,6 +40,24 @@ npm install @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7
    ```
    npm install class-validator class-transformer
    ```
+1. Set up middleware
+   ```ts
+   import { NestFactory } from '@nestjs/core';
+   import { ValidationPipe } from '@nestjs/common';
+   import { AppModule } from './app.module';
+
+   async function bootstrap() {
+   const app = await NestFactory.create(AppModule);
+   app.useGlobalPipes(
+      new ValidationPipe({
+         whitelist: true,
+      }),
+   );
+   await app.listen(3000);
+   }
+   bootstrap();
+   ```
+   - Whitelist removes additional json inputs that aren't expectec
 1. Similar to .net, we create a DTO/Model object that does our ValidationPipe
    ```ts
    import { IsString } from 'class-validator';
@@ -109,4 +127,16 @@ npm install @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7
    export class MessagesService {
    constructor(private readonly messagesRepo: MessagesRepository) {}
    }
+   ```
+
+# Nest and Persistent Data
+
+1. TypeORM and Mongoose
+   - Both work very well w/ Nest
+1. We will be using TypeORM
+   - Use SQLite for now
+   - Eventually swap to Postgres
+1. Installation
+   ```
+   npm install @nestjs/typeorm typeorm sqlite3
    ```
