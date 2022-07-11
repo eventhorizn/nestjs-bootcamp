@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "email": "test2@test.com",
-    "password": "testpassword"
+    "password": "testpassword2"
 }
 
 ### Create a new user - Invalid email
@@ -22,4 +22,21 @@ Content-Type: application/json
 
 {
     "email": "test.com"
+}
+
+### Find a user with a given Id
+GET http://localhost:3000/auth/1
+
+### Find all users with a given email
+GET http://localhost:3000/auth?email=test2@test.com
+
+### Delete a user given id
+DELETE http://localhost:3000/auth/1
+
+### Update a user given id
+PATCH http://localhost:3000/auth/2
+Content-Type: application/json
+
+{
+    "password": "testing"
 }
