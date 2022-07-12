@@ -140,3 +140,37 @@ npm install @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7
    ```
    npm install @nestjs/typeorm typeorm sqlite3
    ```
+
+# Custom Data Serialization
+
+1. We are solving a specific problem with returning data
+   - How do we control what is returned in our response
+1. Nest recommends controlling through the entity
+   - Using `Exclude` from `class-transformer`
+   ```ts
+   @Column()
+   @Exclude()
+   password: string;
+   ```
+   - Also by using built in interceptors
+   ```ts
+   @UseInterceptors(ClassSerializerInterceptor)
+   @Get('/:id')
+   async findUser(@Param('id') id: string) {
+      const user = await this.usersService.findOne(parseInt(id));
+      if (!user) {
+         throw new NotFoundException('user not found');
+      }
+
+      return user;
+   }
+   ```
+1. The weakenss is:
+   - What if we want to sometimes return password? (think admin)
+   - This approach does not allow us to do that
+1. The solution is to not use the entity, but to create custom interceptors and dtos
+
+## Interceptors
+
+1. Applied to a single handler
+   - For all incoming requests, or outgoing responses
