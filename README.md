@@ -173,4 +173,57 @@ npm install @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7
 ## Interceptors
 
 1. Applied to a single handler
-   - For all incoming requests, or outgoing responses
+   - For all incoming requests, or outgoing responses (or not, you can control)
+
+```ts
+import {
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+  UseInterceptors,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { plainToInstance, ClassConstructor } from 'class-transformer';
+
+export function Serialize<T>(dto: ClassConstructor<T>) {
+  return UseInterceptors(new SerializeInterceptor(dto));
+}
+
+export class SerializeInterceptor<T> implements NestInterceptor {
+  constructor(private dto: ClassConstructor<T>) {}
+
+  intercept(context: ExecutionContext, next: CallHandler<any>): Observable<T> {
+    return next.handle().pipe(
+      map((data: T) => {
+        return plainToInstance(this.dto, data, {
+          excludeExtraneousValues: true,
+        });
+      }),
+    );
+  }
+}
+```
+
+1. This is a generic implementation
+1. We pass in the dto we want to deserialize to:
+   ```ts
+   @Serialize(UserDto)
+   @Controller('auth')
+   export class UsersController {
+      ...
+   }
+   ```
+1. Here is our Dto:
+   ```ts
+   import { Expose } from 'class-transformer';
+
+   export class UserDto {
+   @Expose()
+   id: number;
+
+   @Expose()
+   email: string;
+   }
+   ```
+   - We are being specific by which properties we want to see with `Expose`
