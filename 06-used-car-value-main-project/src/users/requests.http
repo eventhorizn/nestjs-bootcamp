@@ -3,7 +3,7 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "test2@test.com",
+    "email": "test4@test.com",
     "password": "testpassword2"
 }
 
@@ -22,6 +22,33 @@ Content-Type: application/json
 
 {
     "email": "test.com"
+}
+
+### Sign in a user
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test4@test.com",
+    "password": "testpassword2"
+}
+
+### Sign in a user email doesn't exist
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test46@test.com",
+    "password": "testpassword2"
+}
+
+### Sign in a user bad password
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test4@test.com",
+    "password": "testpassword2333"
 }
 
 ### Find a user with a given Id
