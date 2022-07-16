@@ -228,4 +228,13 @@ export class SerializeInterceptor<T> implements NestInterceptor {
    ```
    - We are being specific by which properties we want to see with `Expose`
 
-# Unit Testing
+# Testing
+
+## Unit Testing
+
+1. We are using the built in jest testing framework that nest comes with
+1. We create a `*.spec.ts` file that contains our tests
+   - Reference the `auth.service.spec.ts` file
+1. In terms of mocks, we are building our own depending on which class we are testing
+   - Auth service mocks out the `user.service.ts` class
+1. It looks like there is a separate test folder (when creating a nest project from template)...is that for unit testing or for integration?

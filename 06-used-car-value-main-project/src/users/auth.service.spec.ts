@@ -2,8 +2,8 @@ import { Test } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import 'reflect-metadata';
+import { BadRequestException } from '@nestjs/common';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -31,7 +31,6 @@ describe('AuthService', () => {
     };
 
     const module = await Test.createTestingModule({
-      imports: [TypeOrmModule.forFeature([User])],
       providers: [
         AuthService,
         { provide: UsersService, useValue: fakeUsersService },
@@ -55,32 +54,30 @@ describe('AuthService', () => {
     expect(hash).toBeDefined();
   });
 
-  it('throws an error if user signs up with an email that is in use', async (done) => {
+  it('throws an error if user signs up with an email that is in use', async () => {
     await service.signup('blah@blah.com', 'blah');
 
     try {
       await service.signup('blah@blah.com', 'blah');
     } catch (err) {
-      done();
+      expect(err.toString()).toMatch('BadRequestException: email in use');
     }
   });
 
-  it('throws if signin is called with an unused email', async (done) => {
+  it('throws if signin is called with an unused email', async () => {
     try {
       await service.signin('blah@blah.com', 'blah');
     } catch (err) {
-      done();
+      expect(err.toString()).toMatch('NotFoundException: user not found');
     }
   });
 
-  it('throws if an invalid password is provided', async (done) => {
+  it('throws if an invalid password is provided', async () => {
     await service.signup('blah@blah.com', 'test');
 
-    try {
-      await service.signin('blah@blah.com', 'blah');
-    } catch (err) {
-      done();
-    }
+    await expect(service.signup('blah@blah.com', 'blah')).rejects.toThrow(
+      BadRequestException,
+    );
   });
 
   it('returns a user if correct password is provided', async () => {
