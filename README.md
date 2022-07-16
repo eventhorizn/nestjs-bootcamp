@@ -2,6 +2,12 @@
 
 [Official Docs](https://docs.nestjs.com/)
 
+## Setup on Main Project (used car value)
+
+1. You'll want to set up .env.development and .env.test files
+    - These are used to determine which sqlite db we are using
+    - Not commited to source control
+
 # Basics
 
 1. Nest
@@ -252,3 +258,16 @@ export class SerializeInterceptor<T> implements NestInterceptor {
    - This will require us to do environment config in the nest way (which is complicated and over the top)
 
 # App Configuration
+
+1. Install: `npm install @nestjs/config`
+1. We will be using `dotenv`
+1. Nest recommends using a config service to access the dotenv file 
+   - Which I agree with actually. Don't think it's that complicated
+1. Nest docs say
+   - Multiple .env files are ok
+   - Dotenv docs say...never do that
+      - Which I strongly disagree with. I'm used to env specific config (.net core)
+1. **NOTE** on setup
+   - You'll want to set up .env.development and .env.test files
+   - These are used to determine which sqlite db we are using
+   - Not commited to source control
