@@ -233,8 +233,22 @@ export class SerializeInterceptor<T> implements NestInterceptor {
 ## Unit Testing
 
 1. We are using the built in jest testing framework that nest comes with
+1. We run `npm run test:watch` and define which file we want to run
+   - Or we can run them all
 1. We create a `*.spec.ts` file that contains our tests
    - Reference the `auth.service.spec.ts` file
 1. In terms of mocks, we are building our own depending on which class we are testing
    - Auth service mocks out the `user.service.ts` class
 1. It looks like there is a separate test folder (when creating a nest project from template)...is that for unit testing or for integration?
+
+
+## Integration Testing
+
+1. These tests belong in the 'test' folder
+1. We run `npm run test:e2e` and define which file we want to run
+1. We will be creating 2 databases (sqlite)
+   - One for development
+   - One for testing
+   - This will require us to do environment config in the nest way (which is complicated and over the top)
+
+# App Configuration
