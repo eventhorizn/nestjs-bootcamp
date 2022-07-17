@@ -53,6 +53,8 @@ export class AppModule {
       .apply(
         session({
           secret: ['asdfdsfefr'],
+          resave: true,
+          saveUninitialized: true,
         }),
       )
       .forRoutes('*');

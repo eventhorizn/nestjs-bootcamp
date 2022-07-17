@@ -1,0 +1,26 @@
+### Sign in a user
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "testpassword2"
+}
+
+### Sign out
+POST http://localhost:3000/auth/signout
+
+### Add a report
+POST http://localhost:3000/reports
+Content-Type: application/json
+
+{
+    "make": "toyota",
+    "model": "corolla",
+    "year": 1980,
+    "mileage": 100000,
+    "lng": 0,
+    "lat": 0,
+    "price": 500000
+}
+

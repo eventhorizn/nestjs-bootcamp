@@ -7,6 +7,9 @@
 1. You'll want to set up .env.development and .env.test files
     - These are used to determine which sqlite db we are using
     - Not commited to source control
+1. Each module has it's own api calls in it (requests.http)
+   - Locally, this is how I've been setting things up.
+   - I can imagine a global file honestly, but I do like smaller files
 
 # Basics
 
