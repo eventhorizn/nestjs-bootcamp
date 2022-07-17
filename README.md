@@ -271,3 +271,6 @@ export class SerializeInterceptor<T> implements NestInterceptor {
    - You'll want to set up .env.development and .env.test files
    - These are used to determine which sqlite db we are using
    - Not commited to source control
+1. Sqlite has a nice feature for test databases
+   - DB_NAME=:memory:
+   - This will kill our database after each test
