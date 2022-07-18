@@ -20,8 +20,11 @@
    - Lots of packages to get nest rolling!
 1. We will be using Express for our http implementation
 1. Reflect-metadata allows us to use decorators
-
-npm install @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7.6.17 reflect-metadata@0.1.13 typescript
+1. Nestjs uses middlewares, guards, and interceptors
+   - One thing to know, is the order things are used in
+      - Middleware -> Guard -> Interceptor -> Request handler
+   - So, if you have a guard that needs to access something set in an interceptor...gonna have a bad time
+      - Should use a middleware instead
 
 # Nest CLI
 
