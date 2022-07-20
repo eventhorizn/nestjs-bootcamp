@@ -2,13 +2,18 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
+// import { TypeOrmModule } from '@nestjs/typeorm';
+// import { TypeOrmConfigService } from '../src/config/typeorm.config-test';
 
 describe('Authentication System', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [
+        AppModule,
+        // TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
+      ],
     }).compile();
 
     app = moduleFixture.createNestApplication();

@@ -280,3 +280,35 @@ export class SerializeInterceptor<T> implements NestInterceptor {
 1. Sqlite has a nice feature for test databases
    - DB_NAME=:memory:
    - This will kill our database after each test
+
+# Production Deployment
+
+1. For dev and test, we have syncronize turned on for typeorm
+   - So, if we change an entity, that change is automatically applied to the db
+   - Dangerous as you can lose data
+   - So, of course, we will not be using this for production
+   - Instead we will perform migrations
+1. Migrations
+   - A file the orm uses to apply changes
+   - up()
+      - How to update the structure of the db
+   - down()
+      - How to undo the steps in 'up()'
+1. TypeORM is kind of annoying to use migrations
+   - We'll need the typeorm cli
+1. TypeORM and Nest together is also apparently a nightmare
+   - I don't expect professionally to ever use them together (this is mainly for 'fun'), so the details will be sparse
+1. Using [TypeORM CLI](https://typeorm.io/using-cli) to do migrations
+   - CLI doesn't know how to interpret ts files
+1. Running migrations
+   ```bash
+   npm run typeorm migration:generate src/migrations/initial-schema
+   ```
+   ```bash
+   npm run typeorm migration:run
+   ```
+1. Installing postgress node package
+   ```bash
+   npm install pg
+   ```
+1. [Heroki Cli](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up)
